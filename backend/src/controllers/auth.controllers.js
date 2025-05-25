@@ -9,11 +9,11 @@ export const signup = async (req,res)=>{
     try {
 
         if(!fullName || !email || !password){
-            res.status(400).json({message:"All fields are required"})
+           return res.status(400).json({message:"All fields are required"})
         }
 
         if(password.length<6){
-            return res.status(400).josn({message:"Password must be atleast 6 characters long"})
+            return res.status(400).josn({message:"Password must be at least 6 characters long"})
         }
 
         const user = await User.findOne({email});
@@ -42,7 +42,7 @@ export const signup = async (req,res)=>{
                 profilePic:newUser.profilePic,
             });
         } else {
-            console.log("Error in signup controller", error.message);
+            console.log("Error in signup controller");
             res.status(400).json({message:"Internal User data"});
         }
 
@@ -62,7 +62,7 @@ export const login  = async (req,res)=>{
 
         const isPasswordCorrect = await bcrypt.compare(password,user.password)
         if(!isPasswordCorrect){
-            res.status(400).json({message:"Invalid credentials"})
+            return res.status(400).json({message:"Invalid credentials"})
         }
 
         generateToken(user._id,res)
@@ -95,7 +95,7 @@ export const updateProfile = async (req,res)=>{
         const userId = req.user._id;
 
         if(!profilePic){
-            res.status(400).json({message:"Profile pic is required"})
+            return res.status(400).json({message:"Profile pic is required"})
         }
 
         const uploadResponse = await cloudinary.uploader.upload(profilePic)
