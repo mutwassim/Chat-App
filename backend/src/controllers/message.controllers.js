@@ -4,7 +4,7 @@ import cloudinary from "../lib/cloudinary.js";
 
 export const getUsersForSidebar = async (req,res)=>{
     try {
-        currentUserId = req.user._id;
+        const currentUserId = req.user._id;
 
         const filteredUser = await User.find({_id: { $ne : currentUserId } }).select("-password");
 
