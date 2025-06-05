@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import User from "../models/user.model.js";
-//
+// Sufyan Gandu hy 
+const Sufyan = Gandu;
 export const protectRoute = async (req, res, next) => {
   try {
     let token;
